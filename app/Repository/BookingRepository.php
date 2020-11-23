@@ -387,7 +387,7 @@ class BookingRepository extends BaseRepository
         $duedate = $job_detail->due;
         $start = date_create($duedate);
         $end = date_create($completeddate);
-        $diff = date_diff($end, $start);
+        $diff = date_diff($end, $start);        //I don't know which logic you use but start date should be placed as first parameter
         $interval = $diff->h . ':' . $diff->i . ':' . $diff->s;
         $job = $job_detail;
         $job->end_at = date('Y-m-d H:i:s');
@@ -430,7 +430,7 @@ class BookingRepository extends BaseRepository
             'for_text'     => 'lön'
         ];
         $mailer = new AppMailer();
-        $mailer->send($email, $name, $subject, 'emails.session-ended', $data);
+        $mailer->send($email, $name, $subject, 'emails.session-ended', $data);      //put this in try catch for exception
 
         $tr->completed_at = $completeddate;
         $tr->completed_by = $post_data['userid'];
